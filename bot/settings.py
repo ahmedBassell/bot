@@ -21,13 +21,12 @@ SITE_ROOT = os.path.dirname(PROJECT_ROOT)
 BASE_URL = env.get_base_url()
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    '/home/ahmed/django/bot/static/',
+    # os.path.join(BASE_DIR, "static")
 ]
 
 
 
-
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 
 

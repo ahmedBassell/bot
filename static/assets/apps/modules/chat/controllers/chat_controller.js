@@ -6,7 +6,7 @@
         
         $scope.message = "hello from controller" ;
         $scope.loading = true;
-        $scope.input_text = "ssssssssss";
+        $scope.input_text = "";
         $scope.base_url = base_url;
         // $scope.ks = [
         // {'Keyword': 2},
