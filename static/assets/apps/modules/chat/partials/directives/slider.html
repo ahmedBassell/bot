@@ -1,0 +1,54 @@
+<div id="carousel-example" class="carousel slide carousel-fade" data-ride="carousel" data-pause="false" data-interval="8000">
+    
+
+    <!-- INDICATORS -->
+
+    <!-- <ol class="carousel-indicators">
+        <li data-target="#carousel-example" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example" data-slide-to="1"></li>
+        <li data-target="#carousel-example" data-slide-to="2"></li>
+        <li data-target="#carousel-example" data-slide-to="3"></li>
+    </ol> -->
+    <div class="carousel-mask">
+        
+        <div class="Panel">
+            <div class="helloContainer">
+                <div style="background: url({{base_url+'assets/img/logo/titleLogo.png'}});" class="LogoHelloBig"></div>
+                <div class="spDiscr">
+                    <div class="discFline">Book easily like never Before</div>
+                    <div class="discSline">Save time, effort and get it Done...SIMPLY</div>
+
+                </div>
+                <div class="Icons">             
+                    <a class="IconLink soon-Icon" href="#" title="Football">
+                        <div style="background: url({{ base_url+'assets/img/apps/hello/tracks/fo.png'}});" class="fo" title="SOON"></div>
+                    </a>
+                    <a class="IconLink" href="" title="Co-working Spaces">
+                        <div style="background: url({{ base_url+'assets/img/apps/hello/tracks/co.png'}});" class="co" title="Co-Working Spaces"></div>
+                    </a>
+                    <a class="IconLink soon-Icon" href="#" title="Events">
+                        <div style="background: url({{ base_url+'assets/img/apps/hello/tracks/ev.png'}});" class="ev" title="SOON"></div>
+                    </a>
+                </div>
+            </div>
+            <div class="down" scroll-to="howitworks" container-id="main-container">
+                <i class="fa fa-chevron-down"></i>
+            </div>
+        </div>
+    </div>
+    <div class="carousel-inner">
+        <div ng-repeat="img in slider_images" ng-class="{active:$first}" class="item hello-carousel-bg" style="background:url({{img.path}});">
+        </div>
+    </div>
+
+
+
+    <!-- DIRECTIONS -->
+
+    <!-- <a class="left carousel-control" href="#carousel-example" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a> -->
+</div>

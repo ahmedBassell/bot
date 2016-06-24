@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="chatBot" ng-cloak>
+{% load staticfiles %}
+<head>
+	<meta charset="UTF-8">
+	<title>Chatbot</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/main.css' %}" />
+    
+
+    <script type="text/javascript">var base_url = "{{ BASE_URL }}";</script>
+    
+
+    <script src="{% static 'assets/libs/jquery/jquery.min.js' %}"></script>
+    
+
+    
+    <script src="{% static 'assets/libs/angular/angular.min.js' %}"></script>
+        
+    <!-- loading angular modules -->
+    <script src="{% static 'assets/apps/modules/main/main.js' %}"></script>
+    <script src="{% static 'assets/apps/modules/chat/main.js' %}"></script>
+    
+
+	<!-- loading angular controllers -->
+    <script src="{% static 'assets/apps/modules/chat/controllers/chat_controller.js' %}"></script>
+</head>
+<body ng-controller="chatController"  data-ng-init="init()">
+	<div class="blackout" ng-show="loading">
+		<div class="loading_sign">
+			Loading..
+		</div>
+	</div>
+	<div class="mess" ng-if = "!loading">
+		<div class="menu">
+            <div class="back">
+	            <!-- <i class="fa fa-chevron-left"></i>  -->
+	            <img ng-src="http://www.how-to-draw-funny-cartoons.com/images/draw-a-robot-007.jpg" draggable="false"/>
+            </div>
+            <div class="name">SARA</div>
+            <!-- <div class="last">18:09</div> -->
+	    </div>
+	    <ol class="chat">
+	    <li ng-class="msg.sender_id==1 ? 'self' : 'bot'" ng-repeat="msg in messages">
+	    	<div class="avatar" ng-show="msg.sender_id==5">
+	    		<img ng-src="http://www.how-to-draw-funny-cartoons.com/images/draw-a-robot-007.jpg" draggable="false"/>
+	    	</div>
+	    	<div class="avatar" ng-show="msg.sender_id==1">
+	    		<img ng-src="http://i.imgur.com/HYcn9xO.png" draggable="false"/>
+	    	</div>
+	      <div class="msg">
+	        <p ng-bind ="msg.text"></p>
+	        <time ng-bind="msg.time"></time>
+	    </li>
+	    <!-- <li class="bot">
+	        <div class="avatar"><img src="http://www.how-to-draw-funny-cartoons.com/images/draw-a-robot-007.jpg" draggable="false"/></div>
+	      <div class="msg">
+	        <p>Hi!</p>
+	        <p>How are you doing ?</p>
+	        <time>20:17</time>
+	      </div>
+	    </li>
+	    <li class="self">
+	        <div class="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
+	      <div class="msg">
+	        <p>Hi</p>
+	        
+	        <p>WTF</p>
+	        <time>20:18</time>
+	      </div>
+	    </li> -->
+	    
+		    <!-- <li class="bot">
+		        <div class="avatar"><img src="http://www.how-to-draw-funny-cartoons.com/images/draw-a-robot-007.jpg" draggable="false"/></div>
+		      <div class="msg">
+		        <p>Qué contexto de Góngora? <emoji class="suffocated"/></p>
+		        <time>20:18</time>
+		      </div>
+		    </li> -->
+		    <!-- <li class="self">
+		        <div class="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
+		      <div class="msg">
+		        <p>El que mandó Marialu</p>
+		        <p>Es para mañana...</p>
+		        <time>20:18</time>
+		      </div>
+		    </li>
+		    <li class="bot">
+		        <div class="avatar"><img src="http://www.how-to-draw-funny-cartoons.com/images/draw-a-robot-007.jpg" draggable="false"/></div>
+		      <div class="msg">
+		        <p><emoji class="scream"/></p>
+		        <p>Pásamelo! <emoji class="please"/></p>
+		        <time>20:18</time>
+		      </div>
+		    </li>
+		    <li class="self">
+		        <div class="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
+		      <div class="msg">
+		        <img src="http://i.imgur.com/QAROObc.jpg" draggable="false"/>
+		        <time>20:19</time>
+		      </div>
+		    </li>
+		    <li class="bot">
+		        <div class="avatar"><img src="http://www.how-to-draw-funny-cartoons.com/images/draw-a-robot-007.jpg" draggable="false"/></div>
+		      <div class="msg">
+		        <p>Gracias! <emoji class="hearth_blue"/></p>
+		        <time>20:20</time>
+		      </div>
+		    </li>
+		        <div class="day">Hoy</div>
+		    <li class="self">
+		        <div class="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
+		      <div class="msg">
+		        <p>Te apetece jugar a Minecraft?</p>
+		        <time>18:03</time>
+		      </div>
+		    </li>
+		    <li class="bot">
+		        <div class="avatar"><img src="http://www.how-to-draw-funny-cartoons.com/images/draw-a-robot-007.jpg" draggable="false"/></div>
+		      <div class="msg">
+		        <p>Venga va, hace ya mucho que no juego...</p>
+		        <time>18:07</time>
+		      </div>
+		    </li>
+		    <li class="self">
+		        <div class="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
+		      <div class="msg">
+		        <p>Ehh, me crashea el Launcher... <emoji class="cryalot"/></p>
+		        <time>18:08</time>
+		      </div>
+		    </li>
+		    <li class="bot">
+		        <div class="avatar"><img src="http://www.how-to-draw-funny-cartoons.com/images/draw-a-robot-007.jpg" draggable="false"/></div>
+		      <div class="msg">
+		        <p><emoji class="lmao"/></p>
+		        <time>18:08</time>
+		      </div>
+		    </li>
+		    <li class="self">
+		        <div class="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
+		      <div class="msg">
+		        <p>Es broma</p>
+		        <p>Ataque Moai!</p>
+		        <p><span><emoji class="moai"/></span><span><emoji class="moai"/></span><span><emoji class="moai"/></span><span><emoji class="moai"/></span><span><emoji class="moai"/></span><span><emoji class="moai"/></span></p>
+		        <time>18:09</time>
+		      </div>
+		    </li>
+		    <li class="bot">
+		        <div class="avatar"><img src="http://www.how-to-draw-funny-cartoons.com/images/draw-a-robot-007.jpg" draggable="false"/></div>
+		      <div class="msg">
+		          <p>Copón</p>
+		        <p><emoji class="funny"/></p>
+		        <time>18:08</time>
+		      </div>
+		    </li>
+		    <li class="self">
+		        <div class="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false"/></div>
+		      <div class="msg">
+		        <p>Hey there's a new update about this chat UI with more responsive elements! Check it now:</p>
+		        <p><a href="http://codepen.io/Varo/pen/YPmwpQ" target="parent">Chat UI 2.0</a></p>
+		        <time>18:09</time>
+		      </div>
+		    </li> -->
+	    </ol>
+	    
+	    <input class="messageArea" type="text" placeholder="Type here!" my-enter="doit()" ng-model="input_text" autofocus/>
+	    <div class="emojis"></div>
+	    
+	</div>
+
+
+
+
+
+
+        
+</body>
+</html>
