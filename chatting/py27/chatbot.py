@@ -1,4 +1,5 @@
 from random import randint
+import os
 # from srl import srl
 # from Ner import Ner
 
@@ -7,7 +8,8 @@ class bot:
     def __init__(self, name):
         self.name = name
         self.base = {}
-        self.read_file('/home/ahmed/django/bot/chatting/py27/r.txt')
+        self.kb_file_path = os.path.join(os.path.dirname(__file__), 'r.txt')
+        self.read_file(self.kb_file_path)
         self.user_name = "User"
         self.input = ""
         self.raw_input = ""

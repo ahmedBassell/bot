@@ -6,6 +6,7 @@
         
         $scope.message = "hello from controller" ;
         $scope.loading = true;
+        $scope.input_text = "ssssssssss";
         // $scope.ks = [
         // {'Keyword': 2},
         // {'Keyword': 3}
@@ -74,8 +75,8 @@
             $scope.send_message($scope.input_text);
 
             $scope.input_text = "";
-            var elem = document.getElementById('mess');
-            window.scrollTop = 50;
+            // var elem = document.getElementById('mess');
+            // window.scrollTop = 50;
 
             $(window).scrollTop($(document).height() );
         };
