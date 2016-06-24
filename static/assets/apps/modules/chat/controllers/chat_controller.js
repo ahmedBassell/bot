@@ -7,6 +7,7 @@
         $scope.message = "hello from controller" ;
         $scope.loading = true;
         $scope.input_text = "ssssssssss";
+        $scope.base_url = base_url;
         // $scope.ks = [
         // {'Keyword': 2},
         // {'Keyword': 3}
@@ -89,7 +90,7 @@
             // var data = $.param({
             //     input: msg
             // });
-            $http.post(("http://localhost/result"), data)
+            $http.post(($scope.base_url+"/result"), data)
                 .then(function(response) {
                     // console.log(response.data.input);
                     // console.log(response.data.output);
@@ -104,7 +105,7 @@
         };
 
         $scope.get_old_convs = function(){
-            $http.get("http://localhost/chats")
+            $http.get($scope.base_url+"/chats")
             .then(function(response) {
                 var output = response.data;
                 $scope.messages = output;

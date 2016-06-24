@@ -1,8 +1,11 @@
 from django.shortcuts import render_to_response
+from django.http 				import HttpResponse
 from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.core.context_processors import csrf
 from forms import MyRegistrationForm
+from django.conf import settings
+
 # from django.contrib.formtools.wizard.views import SessionWizardView
 from django.core.mail import send_mail
 import logging
@@ -56,5 +59,8 @@ def register_success(request):
 
 def home(request):
 	if(request.user.is_authenticated()):
-		return render_to_response('home.html')
+		html =  render_to_response('home.html',{
+		'BASE_URL': settings.BASE_URL
+		})
+		return HttpResponse(html)
 	return HttpResponseRedirect('/accounts/login/')
