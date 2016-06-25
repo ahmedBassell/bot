@@ -1,20 +1,41 @@
-{% extends "base.html" %}
-
-{% block content %}
-
+<!DOCTYPE html>
+<html >
+	{% load staticfiles %}
+  <head>
+    <meta charset="UTF-8">
+    <title>Chatbot | Welcome</title>
+    	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/accounts/style.css' %}" />
+  </head>
+  <body>
+    <hgroup>
+  <h1>Chatbot</h1>
+  <h3>beta</h3>
+</hgroup>
 {% if form.errors %}
 <p class="error"> Sorry, that's not a valid username or password.</p>
 {% endif %}
 
 <form action="/accounts/auth/" method="post">{% csrf_token %}
-<label for="username">Username:</label>
-<input type="text" name="username" value="" id="username">
-<label for="password">Password:</label>
-<input type="password" name="password" value="" id="password">
-<input type="submit" value="Login">
+  <div class="group">
+    <input type="text" name="username" value="" id="username">
+    <span class="highlight"></span><span class="bar"></span>
+    <label>Username</label>
+  </div>
+  <div class="group">
+    <input type="password" name="password" value="" id="password">
+    <span class="highlight"></span><span class="bar"></span>
+    <label>Password</label>
+  </div>
+  <button type="submit" class="button buttonBlue">Login
+    <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+  </button>
+  <a href="/accounts/register">create new account</a>
 </form>
-
-<h1>{{ article.title }}</h1>
-<p>{{ article.body }}</p>
-
-{% endblock %}
+<footer>
+<!-- <a href="http://www.polymer-project.org/" target="_blank"><img src="https://www.polymer-project.org/images/logos/p-logo.svg"></a>
+  <p>You Gotta Love <a href="http://www.polymer-project.org/" target="_blank">Google</a></p> -->
+</footer>
+    <script src="{% static 'assets/libs/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/accounts/login.js' %}"></script>
+  </body>
+</html>

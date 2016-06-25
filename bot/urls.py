@@ -45,6 +45,7 @@ urlpatterns = [
     url(r'^emo$', 'emotion.views.find_emotion'),
     url(r'^chats$', 'chatting.views.chats'),
     url(r'^api-auth/', include('rest_framework.urls')),
+    url(r'^home$', 'bot.views.home'),
 
     # user auth urls
     url(r'^accounts/login/$', 'bot.views.login'),
@@ -58,5 +59,5 @@ urlpatterns = [
     url(r'^accounts/register_success/$', 'bot.views.register_success'),
     
 
-    url(r'^$', 'bot.views.home'),
+    url(r'^$', 'bot.views.chatting'),
 ]

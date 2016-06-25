@@ -31,7 +31,7 @@ from django.db.models import Q
 
 # MODELS
 from django.contrib.auth.models import User
-from models import Conversation
+from models import Conversation, Session
 
 sara = bot('Sara')
 @csrf_exempt # remove csrf
@@ -43,10 +43,13 @@ def result(request):
 	if request.method == 'POST':
 		received_json_data=json.loads(request.body)
 		user_input = received_json_data['input']
+		session_id = received_json_data['session_id']
 		
+		session = Session.objects.get(id = session_id)
+
 		datetime = timezone.now()
 		bot = User.objects.get(username="bot")
-		c = Conversation(text=user_input, date=datetime, sender_id=request.user, receiver_id=bot)
+		c = Conversation(text=user_input, date=datetime, sender_id=request.user, receiver_id=bot, session_id = session)
 		c.save()
 
 
@@ -56,7 +59,7 @@ def result(request):
         
         output = sara.print_response()
 
-        reply = Conversation(text=output, date=datetime, sender_id=bot, receiver_id=request.user)
+        reply = Conversation(text=output, date=datetime, sender_id=bot, receiver_id=request.user, session_id = session)
         reply.save()
         
 
@@ -74,16 +77,23 @@ def result(request):
 def chats(request):
 	if(not request.user.is_authenticated()):
 		return JsonResponse({'response':'forbidden'})
-	users = User.objects.all()
-	
-	convs = Conversation.objects.filter( Q(sender_id   =  request.user) | Q(receiver_id = request.user) ).order_by('date')
-	
 
-	data = serializers.serialize("json", convs)
-	struct = json.loads(data)
-	result = []
-	for i in struct:
-		result.append(i['fields'])
-	data = json.dumps(result)
+	if request.method == 'GET':
+		sess_id = request.GET.get('sess')
+		sess = Session.objects.get(user_id = request.user, id = sess_id)
+		if(sess == None):
+			return JsonResponse({'response':'forbidden'})
+		users = User.objects.all()
+		
+		convs = Conversation.objects.filter( (Q(sender_id   =  request.user) | Q(receiver_id = request.user)) & Q(session_id = sess_id)  ).order_by('date')
+		
+
+		data = serializers.serialize("json", convs)
+		struct = json.loads(data)
+		result = []
+		for i in struct:
+			result.append(i['fields'])
+		data = json.dumps(result)
+
 	return HttpResponse(data, content_type='application/json')
-	# return JsonResponse(data, safe=False)
+	# return JsonResponse({}, safe=False)

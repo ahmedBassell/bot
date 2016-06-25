@@ -1072,11 +1072,11 @@ th {
 .glyphicon-menu-up:before {
   content: "\e260";
 }
-* {
+/** {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-}
+}*/
 *:before,
 *:after {
   -webkit-box-sizing: border-box;
@@ -1092,7 +1092,7 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: #333333;
-  background-color: #f4f7f8;
+  background-color: #E5E5E5;
 }
 input,
 button,

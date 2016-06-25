@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="chatBot" ng-cloak>
+	{% load staticfiles %}
+	<head>
+		<meta charset="UTF-8">
+		<title>Chatbot</title>
+		<link rel="stylesheet" type="text/css" href="{% static 'assets/css/main.css' %}" />
+		<link rel="stylesheet" type="text/css" href="{% static 'assets/libs/bootstrap/bootstrap/css/bootstrap.css' %}" />
+
+	    <script type="text/javascript">var base_url = "{{ BASE_URL }}";</script>
+	    <script type="text/javascript">var session_id = "{{ session_id }}";</script>
+	    <script type="text/javascript">console.log(base_url);</script>
+	    
+	    <script src="{% static 'assets/libs/jquery/jquery.min.js' %}"></script>
+	    <script src="{% static 'assets/libs/bootstrap/bootstrap/js/bootstrap.min.js' %}"></script>
+	    	    
+	    <script src="{% static 'assets/libs/angular/angular.min.js' %}"></script>
+	        
+	    <!-- loading angular modules -->
+	    <script src="{% static 'assets/apps/modules/main/main.js' %}"></script>
+	    <script src="{% static 'assets/apps/modules/home/main.js' %}"></script>
+	    <script src="{% static 'assets/apps/modules/chat/main.js' %}"></script>
+
+		<!-- loading angular controllers -->
+	    <script src="{% static 'assets/apps/modules/chat/controllers/chat_controller.js' %}"></script>
+	</head>
+	<body ng-controller="chatController"  data-ng-init="init()">
+		<div class="blackout" ng-show="loading">
+			<div class="loading_sign">
+				Loading..
+			</div>
+		</div>
+		<div class="mess">
+			<div class="menu">
+	            <div class="back">
+		            <a class="back-link" href="/home">
+		            	<i class="fa fa-chevron-left"></i> 
+		            </a>
+		            <img ng-src="http://www.how-to-draw-funny-cartoons.com/images/draw-a-robot-007.jpg" draggable="false"/>
+	            </div>
+	            <div class="name">SARA</div>
+	            <!-- <div class="last">18:09</div> -->
+	            <ul class="nav navbar-nav navbar-right">
+			        
+			        <li class="dropdown">
+			          <a href="#" class="dropdown-toggle settings-cog-cont" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+			          	<div class="settings-cog">
+			          		<i class="fa fa-cog"></i>
+			          	</div>
+			          </a>
+			          <ul class="dropdown-menu">
+			            <li><a href="/home">Home</a></li>
+			            <li role="separator" class="divider"></li>
+			            <li><a href="/accounts/logout">Logout</a></li>
+			          </ul>
+			        </li>
+			    </ul>
+				    
+		    </div>
+		    <ol class="chat">
+			    <li ng-class="msg.sender_id==1 ? 'self' : 'bot'" ng-repeat="msg in messages">
+			    	<div class="avatar" ng-show="msg.sender_id==5">
+			    		<img ng-src="http://www.how-to-draw-funny-cartoons.com/images/draw-a-robot-007.jpg" draggable="false"/>
+			    	</div>
+			    	<div class="avatar" ng-show="msg.sender_id==1">
+			    		<img ng-src="http://i.imgur.com/HYcn9xO.png" draggable="false"/>
+			    	</div>
+			      <div class="msg">
+			        <p class="msg-txt" ng-bind ="msg.text"></p>
+			        <time class="msg-time" ng-bind="msg.time"></time>
+			    </li>
+		    </ol>
+		    
+		    <input class="messageArea" type="text" placeholder="Type here!" my-enter="doit()" ng-model="input_text" autofocus/>
+		    <div class="emojis"></div>
+
+
+
+
+
+
+
+
+
+		   <!--  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Current Emotion</h4>
+      </div>
+      <div class="modal-body">
+        <% current_emo %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+		    
+		</div>      
+	</body>
+</html>

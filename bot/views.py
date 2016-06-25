@@ -6,6 +6,8 @@ from django.core.context_processors import csrf
 from forms import MyRegistrationForm
 from django.conf import settings
 
+from chatting.models import Session
+
 # from django.contrib.formtools.wizard.views import SessionWizardView
 from django.core.mail import send_mail
 import logging
@@ -25,7 +27,7 @@ def auth_view(request):
 
 	if user is not None:
 		auth.login(request, user)
-		return HttpResponseRedirect('/accounts/loggedin/')
+		return HttpResponseRedirect('/')
 	else:
 		return HttpResponseRedirect('/accounts/invalid_login/')
 
@@ -57,10 +59,51 @@ def register_user(request):
 def register_success(request):
 	return render_to_response('register_success.html')
 
+def chatting(request):
+	if(request.user.is_authenticated()):
+		user = request.user
+
+		if request.method == 'GET':
+			sess = request.GET.get('sess')
+			if(sess == "new"):
+				# new
+				s = Session(name="new session", user_id=user)
+				s.save()
+				return HttpResponseRedirect('/?sess=' + str(s.id))
+			else:
+				# find if exist
+				try:
+				    s = Session.objects.get(id=sess)
+				except Session.DoesNotExist:
+				    s = None
+				
+				if(s is None):
+					return HttpResponseRedirect('/home')
+
+		html =  render_to_response('chatting.html',{
+		'BASE_URL': settings.BASE_URL,
+		'session_id': s.id 		
+		})
+		return HttpResponse(html)
+	return HttpResponseRedirect('/accounts/login/')
+
+
+
+
+
+# start new session
+# or get some session
 def home(request):
 	if(request.user.is_authenticated()):
+		user = request.user
+		try:
+			sessions = Session.objects.filter(user_id = request.user)
+		except Session.DoesNotExist:
+			sessions = None
 		html =  render_to_response('home.html',{
-		'BASE_URL': settings.BASE_URL
+		'BASE_URL': settings.BASE_URL,
+		'user' : user,
+		'sessions': sessions
 		})
 		return HttpResponse(html)
 	return HttpResponseRedirect('/accounts/login/')

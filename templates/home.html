@@ -3,55 +3,107 @@
 	{% load staticfiles %}
 	<head>
 		<meta charset="UTF-8">
-		<title>Chatbot</title>
+		<title>Chatbot | Home</title>
 		<link rel="stylesheet" type="text/css" href="{% static 'assets/css/main.css' %}" />
+		<link rel="stylesheet" type="text/css" href="{% static 'assets/libs/bootstrap/bootstrap/css/bootstrap.css' %}" />
 
 	    <script type="text/javascript">var base_url = "{{ BASE_URL }}";</script>
 	    <script type="text/javascript">console.log(base_url);</script>
 	    
 	    <script src="{% static 'assets/libs/jquery/jquery.min.js' %}"></script>
+	    <script src="{% static 'assets/libs/bootstrap/bootstrap/js/bootstrap.min.js' %}"></script>
 	    	    
 	    <script src="{% static 'assets/libs/angular/angular.min.js' %}"></script>
 	        
 	    <!-- loading angular modules -->
 	    <script src="{% static 'assets/apps/modules/main/main.js' %}"></script>
 	    <script src="{% static 'assets/apps/modules/chat/main.js' %}"></script>
+	    <script src="{% static 'assets/apps/modules/home/main.js' %}"></script>
 
 		<!-- loading angular controllers -->
-	    <script src="{% static 'assets/apps/modules/chat/controllers/chat_controller.js' %}"></script>
+	    <script src="{% static 'assets/apps/modules/home/controllers/home_controller.js' %}"></script>
 	</head>
-	<body ng-controller="chatController"  data-ng-init="init()">
+	<body ng-controller="homeController"  data-ng-init="init()">
 		<div class="blackout" ng-show="loading">
 			<div class="loading_sign">
 				Loading..
 			</div>
 		</div>
-		<div class="mess">
-			<div class="menu">
-	            <div class="back">
-		            <!-- <i class="fa fa-chevron-left"></i>  -->
-		            <img ng-src="http://www.how-to-draw-funny-cartoons.com/images/draw-a-robot-007.jpg" draggable="false"/>
-	            </div>
-	            <div class="name">SARA</div>
-	            <!-- <div class="last">18:09</div> -->
-		    </div>
-		    <ol class="chat">
-			    <li ng-class="msg.sender_id==1 ? 'self' : 'bot'" ng-repeat="msg in messages">
-			    	<div class="avatar" ng-show="msg.sender_id==5">
-			    		<img ng-src="http://www.how-to-draw-funny-cartoons.com/images/draw-a-robot-007.jpg" draggable="false"/>
-			    	</div>
-			    	<div class="avatar" ng-show="msg.sender_id==1">
-			    		<img ng-src="http://i.imgur.com/HYcn9xO.png" draggable="false"/>
-			    	</div>
-			      <div class="msg">
-			        <p ng-bind ="msg.text"></p>
-			        <time ng-bind="msg.time"></time>
-			    </li>
-		    </ol>
-		    
-		    <input class="messageArea" type="text" placeholder="Type here!" my-enter="doit()" ng-model="input_text" autofocus/>
-		    <div class="emojis"></div>
-		    
-		</div>      
+		<div class="body">
+			<div class="user-profile col-md-4 col-lg-3 col-xs-4">
+				<div class="user_pic">
+					user picture ;)
+				</div>
+				<div class="user_data">
+					<div class="username ud-cell">
+						{{user.username}}
+					</div>
+					<div class="useremail ud-cell">
+						{{user.email}}
+					</div>
+				</div>
+				<div class="botmenu">
+					<a href="/accounts/logout">
+						<div class="logoutButton">
+							Logout
+						</div>
+					</a>
+				</div>
+			</div>
+
+			<div class="main_body col-md-8 col-lg-9 col-xs-8">
+				<div class="welcome_message center col-md-10">
+					Welcome Back 
+					<span class="welcome-user-email">
+						{{user.email}}
+					</span> !
+				</div>
+				<div class="sessions center col-md-10">
+					<div class="sessHeader">
+						<div class="sessionsTitle col-md-6">
+							Sessions
+						</div>
+						<div class="newSess col-md-6">
+							<a href="/?sess=new">
+								<div class="newSessButton">
+									+ Start New Session
+								</div>
+							</a>
+						</div>
+					</div>
+					<div class="sessionsCont">
+						<!-- <div class="sess">
+							<div class="sessTitle col-md-6">
+								Session #22
+							</div>
+							<div class="sessRepliesNo col-md-6">
+								33849 replies
+							</div>
+							<div class="sessDateTime col-md-12">
+								Last seen: Tue 13 Mar 2007 12:00 pm
+							</div>
+						</div> -->
+						{% for sess in sessions %}
+						<a href="/?sess={{sess.id}}">
+							<div class="sess">
+								<div class="sessTitle col-md-6">
+									#{{sess.id}}
+								</div>
+								<div class="sessRepliesNo col-md-6">
+									33849 replies
+								</div>
+								<div class="sessDateTime col-md-12">
+									Last seen: Tue 13 Mar 2007 12:00 pm
+								</div>
+							</div>
+						</a>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="visualization center col-md-10">
+					VISUALIZATION for something here
+				</div>
+			</div>
+		</div>   
 	</body>
 </html>

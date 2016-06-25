@@ -1,8 +1,17 @@
-{% extends "base.html" %}
-
-{% block content %}
-
-  <h2>You have registered!</h2>
-  <p>Click <a href="/accounts/login/">here</a> to login.</p>
-
-{% endblock %}
+<!DOCTYPE html>
+<html >
+	{% load staticfiles %}
+  <head>
+    <meta charset="UTF-8">
+    <title>Chatbot | Success</title>
+    	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/accounts/style.css' %}" />
+  </head>
+  <body>
+    <hgroup>
+      <h1>You have registered Successfully !</h1>
+      <h3>Click <a href="/accounts/login">Here</a> To Login</h2>
+    </hgroup>
+    <script src="{% static 'assets/libs/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/accounts/login.js' %}"></script>
+  </body>
+</html>

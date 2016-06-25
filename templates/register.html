@@ -1,11 +1,52 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html >
+	{% load staticfiles %}
+  <head>
+    <meta charset="UTF-8">
+    <title>Chatbot | Register</title>
+    	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/accounts/style.css' %}" />
+  </head>
+  <body>
+    <hgroup>
+  <h1>Chatbot</h1>
+  <h3>beta</h3>
+</hgroup>
+<form action="/accounts/register/" method="post">{% csrf_token %}
+ 	{% for field in form %}
+	    <div class="fieldWrapper">
 
-{% block content %}
+			<div class="group">
+				<input type="{{field.field.widget.input_type}}" name="{{field.html_name}}" value="" id="{{field.html_name}}">
+				<span class="highlight"></span><span class="bar"></span>
+				<label>{{ field.label }}</label>
+			</div>
+	        {{ field.errors }}
+	         
+	        {% if field.help_text %}
+	        <p class="help">{{ field.help_text|safe }}</p>
+	        {% endif %}
+	    </div>
+	{% endfor %}
+  <button type="submit" class="button buttonBlue">Register
+    <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+  </button>
+  <a href="/accounts/login">Aleady User?</a>
+</form>
+<footer>
+<!-- <a href="http://www.polymer-project.org/" target="_blank"><img src="https://www.polymer-project.org/images/logos/p-logo.svg"></a>
+  <p>You Gotta Love <a href="http://www.polymer-project.org/" target="_blank">Google</a></p> -->
+</footer>
+    <script src="{% static 'assets/libs/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/accounts/login.js' %}"></script>
+  </body>
+</html>
+
+
+
+<!-- 
 
 <h2>Register</h2>
 <form action="/accounts/register/" method="post">{% csrf_token %}
 {{ form }}
 <input type="submit" value="Register">
-</form>
-
-{% endblock %}
+</form> -->

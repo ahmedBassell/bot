@@ -8,6 +8,9 @@
         $scope.loading = true;
         $scope.input_text = "";
         $scope.base_url = base_url;
+        $scope.emo_buffer = "";
+        $scope.current_emo = "";
+        $scope.session_id = session_id;
         // $scope.ks = [
         // {'Keyword': 2},
         // {'Keyword': 3}
@@ -69,6 +72,23 @@
             // message.time = "20:11";
             // message.sender_id = 1;
             // $scope.messages.push(message);
+            
+
+            // GET EMOTION
+            $scope.emo_buffer += $scope.input_text;
+            $scope.emo_buffer += " ";
+            if($scope.emo_buffer.length > 50 ){
+            console.log($scope.emo_buffer.length);
+                $scope.get_emotion($scope.emo_buffer);
+                $scope.emo_buffer = "";
+            }
+
+
+
+
+
+
+
 
             $scope.new_message($scope.input_text, "00:00", 1);
 
@@ -85,7 +105,8 @@
         $scope.send_message = function(msg){
             var data = 
             {
-                input: msg
+                input: msg,
+                session_id : $scope.session_id
             };
             // var data = $.param({
             //     input: msg
@@ -105,13 +126,33 @@
         };
 
         $scope.get_old_convs = function(){
-            $http.get($scope.base_url+"/chats")
+            $http.get($scope.base_url+"/chats?sess="+$scope.session_id)
             .then(function(response) {
                 var output = response.data;
                 $scope.messages = output;
             });
 
         };
+
+        console.log(session_id);
+        $scope.get_emotion = function(emo_buffer){
+            var data = 
+            {
+                input: emo_buffer
+            };
+            
+            $http.post(($scope.base_url+"/emo"), data)
+                .then(function(response) {
+                    var output = response.data.output;
+                    $scope.current_emo = output;
+                    console.log(output);
+                    $('#myModal').modal({
+                      keyboard: true
+                    })
+                });
+        };
+
+
         $scope.init = function(){
             $timeout(negateLoading, 1000);
             console.log('inited');

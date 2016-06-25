@@ -7,10 +7,16 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 
+class Session(models.Model):
+	user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_sess')
+	name = models.TextField()
+
+
 class Conversation(models.Model):
 	sender_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sen')
 	receiver_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='rec')
 	text = models.TextField()
+	session_id = models.ForeignKey(Session, on_delete=models.CASCADE, related_name='sess')
 	date = models.DateTimeField('date')
 
 	def __unicode__(self):

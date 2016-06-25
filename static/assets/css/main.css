@@ -35,7 +35,7 @@ a{
     height: 50px;
     top: 0px;
     left: 0px;
-    color: #fff;
+    color: #222;
     line-height: 50px;
     font-size: 30px;
     padding-left: 10px;
@@ -92,8 +92,8 @@ a{
     display: flex;
 }
 .chat .avatar {
-    width: 40px;
-    height: 40px;
+    width: 28px;
+    height: 28px;
     position: relative;
     display: block;
     z-index: 2;
@@ -104,8 +104,8 @@ a{
     background-color: rgba(255,255,255,0.9);
 }
 .chat .avatar img {
-    width: 40px;
-    height: 40px;
+    width: 28px;
+    height: 28px;
     border-radius: 100%;
     -webkit-border-radius: 100%;
     -moz-border-radius: 100%;
@@ -173,10 +173,11 @@ a{
     right: 10px;
     width: 0px;
     height: 0px;
-    border: 5px solid #fff;
+    border: 4px solid #0077E5;
     border-right-color: transparent;
     border-top-color: transparent;
     box-shadow: 0px 2px 0px #D4D4D4;
+    /*background: #0077E5;*/
 }
 
 .msg {
@@ -188,8 +189,8 @@ a{
     box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.07);
 }
 .msg p {
-    font-size: 0.8rem;
-    margin: 0 0 0.2rem 0;
+    font-size: 12px;
+    margin: 0px 0px 0.2rem;
     color: #777;
 }
 .msg img {
@@ -217,7 +218,7 @@ a{
 }
 
 .msg time {
-    font-size: 0.7rem;
+    font-size: 10px;
     color: #ccc;
     margin-top: 3px;
     float: right;
@@ -335,7 +336,7 @@ emoji.funny{background-image: url(http://i.imgur.com/qKia58V.png);}
 .blackout{
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     top: 0px;
     background-color: #222;
     z-index: 150;
@@ -351,4 +352,189 @@ emoji.funny{background-image: url(http://i.imgur.com/qKia58V.png);}
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
+}
+
+.settings-cog-cont{
+width: 26px;
+height: 20px;
+    background: #fff;
+}
+.settings-cog{
+    text-align: right;
+    font-size: 22px;
+    padding-right: 24px;
+    vertical-align: top;
+    display: inline-block;
+    right: 0px;
+    position: absolute;
+    color: #222;
+}
+
+
+.self .msg{
+    background: #0077E5;
+}
+.self .msg-txt{
+    color: #fff;
+}
+.self .msg-time{
+    color:#fff;
+}
+.back-link:visited, .back-link:active{
+    color: #222;
+}
+
+html, body, .body{
+    position: relative;
+    height: 100%;
+
+}
+/*HOME PAGE*/
+.user-profile{
+    /*min-height: 300px;*/
+    height: 100%;
+    background: #333;
+    box-sizing: border-box;
+
+    position: fixed !important;
+    left:0;
+    z-index: 5;
+}
+
+.user_pic{
+    width: 220px;
+    height: 220px;
+    background: #fff;
+    border: 1px solid #222;
+    margin: 20px auto;
+}
+
+.user_data{
+    width: 220px;
+    height: auto;
+    
+    color: #fff;
+    margin: 0px auto;
+
+}
+.ud-cell{
+    background: #222;
+    padding: 10px;
+    margin: 10px auto;
+    font-weight: normal;
+    font-size: 14px;
+
+}
+.main_body{
+    min-height: 100%;
+    height: auto;
+    background: #f2f2f2;
+    box-sizing: border-box;
+
+    float: right !important;
+}
+
+.welcome_message, .sessions, .visualization{
+    height: 200px;
+    padding: 20px;
+    margin: 20px auto !important;
+    background: #fff;
+    box-sizing: border-box; 
+
+    color: #222;  
+    text-align: center;
+    font-family: "Lato", sans-serif;
+    font-size: 20px;
+
+    border: 1px solid #d7d7d7;
+    border-radius: 4px;
+}
+.welcome_message{
+    height: 80px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: left;
+}
+.sessions{
+    height: 360px;
+    overflow-y: scroll;
+}
+.visualization{
+    height: 280px;
+}
+.center{
+    margin: 0 auto;
+    float: none !important;
+}
+
+.welcome-user-email{
+    font-size: 20px;
+    color: #555;
+    font-weight: lighter;
+}
+
+
+.botmenu{
+    position: absolute;
+    bottom: 0px;
+    height: 50px;
+    width: 100%;
+    left: 0px;
+    background: rgb(255, 242, 34) none repeat scroll 0% 0%;
+}
+.logoutButton{
+    height: 24px;
+    width: 100%;
+    background: #222;
+    padding: 13px 0;
+    text-align: center;
+    font-family: sans-serif;
+    color: #fff;
+    cursor: pointer;
+}
+
+.sess{
+    width: 100%;
+    height: 50px;
+    padding: 4px;
+    box-sizing: border-box;
+    border-top: 1px solid rgb(215, 215, 215);
+    border-bottom: 1px solid rgb(215, 215, 215);
+    font-size: 14px;
+    color: rgb(51, 51, 51);
+    font-weight: lighter;
+    margin: 4px auto;
+    cursor: pointer;
+}
+.sessTitle{
+    box-sizing: border-box;
+    text-align: left;
+}
+.sessRepliesNo{
+    box-sizing: border-box;
+    text-align: right;
+}
+
+.sessDateTime{
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.sessHeader{
+    display: block;
+    width: 100%;
+    height: 60px;
+    /*border: 1px solid red;*/
+}
+.sessionsTitle, .newSess{
+    box-sizing: border-box;
+    text-align: left;
+}
+.newSessButton{
+    background: #447Ab7;
+    width: 100%;
+    height: 30px;
+    padding: 15px 0;
+    color: #fff;
+    text-align: center;
 }

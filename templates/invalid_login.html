@@ -1,9 +1,16 @@
+<!DOCTYPE html>
+<html >
+	{% load staticfiles %}
+  <head>
+    <meta charset="UTF-8">
+    <title>Chatbot | Success</title>
+    	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/accounts/style.css' %}" />
+  </head>
+  <body>
+    <hgroup>
+		<h2>Your login details are invalid!</h2>
+		<p>Click <a href="/accounts/login/">here</a> to login again.</p>
+    </hgroup>
+  </body>
+</html>
 
-{% extends "base.html" %}
-
-{% block content %}
-
-<h2>Your login details are invalid!</h2>
-<p>Click <a href="/accounts/login/">here</a> to login again.</p>
-
-{% endblock %}

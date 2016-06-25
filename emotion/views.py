@@ -25,9 +25,9 @@ import json
 def find_emotion(request):
 
 	if request.method == 'POST':
-		user_input = request.POST.get('input')
-		# received_json_data=json.loads(request.body)
-		# user_input = received_json_data['input']
+		# user_input = request.POST.get('input')
+		received_json_data=json.loads(request.body)
+		user_input = received_json_data['input']
 		
 		t0 = time.time()
 		from emo.erf import Emotion
@@ -46,4 +46,4 @@ def find_emotion(request):
 		result = emo.get_emotion('i feel happy')
 		time_iter = (time.time() - t0)
 		result.append({'time': time_iter})
-	return JsonResponse(result, safe=False)
+	return JsonResponse({'output': result}, safe=False)
