@@ -58,11 +58,11 @@
 				    
 		    </div>
 		    <ol class="chat">
-			    <li ng-class="msg.sender_id==1 ? 'self' : 'bot'" ng-repeat="msg in messages">
+			    <li ng-class="msg.sender_id!=5 ? 'self' : 'bot'" ng-repeat="msg in messages">
 			    	<div class="avatar" ng-show="msg.sender_id==5">
 			    		<img ng-src="http://www.how-to-draw-funny-cartoons.com/images/draw-a-robot-007.jpg" draggable="false"/>
 			    	</div>
-			    	<div class="avatar" ng-show="msg.sender_id==1">
+			    	<div class="avatar" ng-show="msg.sender_id!=5">
 			    		<img ng-src="http://i.imgur.com/HYcn9xO.png" draggable="false"/>
 			    	</div>
 			      <div class="msg">
