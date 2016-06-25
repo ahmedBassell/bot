@@ -8,9 +8,9 @@ import dill
 
 class Emotion(object):
     def __init__(self):
-        file_Name = "/home/ahmed/Desktop/collegeProjects/bot/emotion/emo/modelfile.txt"
-        file_Name1 = "/home/ahmed/Desktop/collegeProjects/bot/emotion/emo/count_vect.txt"
-        file_Name2 = "/home/ahmed/Desktop/collegeProjects/bot/emotion/emo/tfidfvec.txt"
+        file_Name = os.path.join(os.path.dirname(__file__), 'modelfile.txt')
+        file_Name1 = os.path.join(os.path.dirname(__file__), 'count_vect.txt')
+        file_Name2 = os.path.join(os.path.dirname(__file__), 'tfidfvec.txt')
         # we open the file for reading
         fileObject = open(file_Name,'r')  
         fileObject1 = open(file_Name1,'r')  
