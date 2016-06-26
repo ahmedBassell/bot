@@ -538,3 +538,38 @@ html, body, .body{
     color: #fff;
     text-align: center;
 }
+
+.emotions{
+    width: 30px;
+    height: 40px;
+    padding: 2px 10px 8px 10px;
+    font-size: 35px;
+    cursor: pointer;
+}
+.red{
+    color: red;
+}
+.blue{
+    color: #3f51b5;
+}
+.green{
+    color: green;
+}
+.yellow{
+    color: #F9D294;
+}
+.brown{
+    color: brown;
+}
+.grey{
+    color: grey;
+}
+.violet{
+    color: violet;
+}
+
+.emotion_pic img{
+    width: 30px;
+    height: 30px;
+    padding: 10px
+}

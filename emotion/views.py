@@ -34,7 +34,7 @@ def find_emotion(request):
 		emo = Emotion()
 		result = emo.get_emotion(user_input)
 		time_iter = (time.time() - t0)
-		result.append({'time': time_iter})
+		result['time']= time_iter
 	else:
 		# user_input = request.POST.get('input')
 		# received_json_data=json.loads(request.body)
@@ -45,5 +45,5 @@ def find_emotion(request):
 		emo = Emotion()
 		result = emo.get_emotion('i feel happy')
 		time_iter = (time.time() - t0)
-		result.append({'time': time_iter})
+		result['time']= time_iter
 	return JsonResponse({'output': result}, safe=False)

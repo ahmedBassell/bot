@@ -11,6 +11,77 @@
         $scope.emo_buffer = "";
         $scope.current_emo = "";
         $scope.session_id = session_id;
+
+        $scope.current_emo = {};
+        $scope.current_emo.svm = "NEUTRAL";
+        $scope.current_emo.logi = "NEUTRAL";
+        $scope.current_emo.multi = "NEUTRAL";
+
+        $scope.emotion = "meh";
+        $scope.emotions = []
+        $scope.emotions['joy'] = 0;
+        $scope.emotions['sadness'] = 0;
+        $scope.emotions['shame'] = 0;
+        $scope.emotions['disgust'] = 0;
+        $scope.emotions['anger'] = 0;
+        $scope.emotions['fear'] = 0;
+
+        $scope.emo_drawings = [];
+        $scope.emo_drawings['joy']       = 'fa-smile-o';
+        $scope.emo_drawings['sadness']   = 'fa-frown-o';
+        $scope.emo_drawings['shame']     = 'fa-frown-o';
+        $scope.emo_drawings['disgust']   = 'fa-frown-o';
+        $scope.emo_drawings['anger']     = 'fa-frown-o';
+        $scope.emo_drawings['fear']     = 'fa-meh-o';
+        $scope.emo_drawings['meh']       = 'fa-meh-o';
+        $scope.emo_drawing =  $scope.emo_drawings['meh'];
+
+
+        $scope.emo_drawing_colors = [];
+        $scope.emo_drawing_colors['joy']       = 'yellow';
+        $scope.emo_drawing_colors['sadness']   = 'blue';
+        $scope.emo_drawing_colors['shame']     = 'brown';
+        $scope.emo_drawing_colors['disgust']   = 'green';
+        $scope.emo_drawing_colors['anger']     = 'red';
+        $scope.emo_drawing_colors['fear']     = 'violet';
+        $scope.emo_drawing_color = "grey";
+
+        // $scope.emotion = "neutral";
+
+
+        $scope.emo_image_path = static_url+"assets/img/emotions/"+$scope.emotion+'.jpg';
+
+
+
+        $scope.classify_emotion = function(){
+            $scope.emotions[$scope.current_emo.svm] ++;
+            $scope.emotions[$scope.current_emo.logi] ++;
+            $scope.emotions[$scope.current_emo.multi] ++;
+            var emos = $scope.emotions; 
+            console.log(emos);
+            // emos.sort();
+            // emos.reverse();
+            var max_emo = "";
+            var max_emo_score = 0;
+            for(var i in emos){
+                var emo = emos[i];
+                if(emo > max_emo_score){
+                    max_emo = i;
+                    max_emo_score = emo;
+                }
+            }
+
+
+            $scope.emotions['joy'] = 0;
+            $scope.emotions['sadness'] = 0;
+            $scope.emotions['shame'] = 0;
+            $scope.emotions['disgust'] = 0;
+            $scope.emotions['anger'] = 0;
+            $scope.emotions['fear'] = 0;
+
+
+            return max_emo;
+        };
         // $scope.ks = [
         // {'Keyword': 2},
         // {'Keyword': 3}
@@ -58,10 +129,10 @@
             // }
         ];
 
-        $scope.new_message = function(text, time="00:00", sender=0){
+        $scope.new_message = function(text, time, sender){
             var message = {}
             message.text = text;
-            message.time = time;
+            message.date = time;
             message.sender_id = sender;
             $scope.messages.push(message);
         };
@@ -89,8 +160,8 @@
 
 
 
-
-            $scope.new_message($scope.input_text, "00:00", 1);
+            console.log(Date());
+            $scope.new_message($scope.input_text, new Date(), 1);
 
             // post message
             $scope.send_message($scope.input_text);
@@ -116,7 +187,7 @@
                     // console.log(response.data.input);
                     // console.log(response.data.output);
                     var output = response.data.output;
-                    $scope.new_message(output, "00:00", 5);
+                    $scope.new_message(output, new Date(), 5);
                     // var message = {}
                     // message.text = output;
                     // message.time = "20:11";
@@ -145,13 +216,27 @@
                 .then(function(response) {
                     var output = response.data.output;
                     $scope.current_emo = output;
-                    console.log(output);
-                    $('#myModal').modal({
-                      keyboard: true
-                    })
+                    $scope.current_emo.svm = output['SVM'];
+                    $scope.current_emo.logi = output['Logistic Regression'];
+                    $scope.current_emo.multi = output['Multinomial Naive Bayes'];
+                    // console.log(output);
+                    // $('#myModal').modal({
+                    //   keyboard: true
+                    // });
+
+                    $scope.adjust_emotion_drawing();
                 });
         };
 
+        $scope.adjust_emotion_drawing = function(){
+            $scope.emotion = $scope.classify_emotion();
+            var final_emo = $scope.emotion;
+            console.log($scope.emotion);
+            $scope.emo_drawing = $scope.emo_drawings[final_emo];
+            $scope.emo_drawing_color = $scope.emo_drawing_colors[final_emo];
+
+            $scope.emo_image_path = static_url+"assets/img/emotions/"+$scope.emotion+'.jpg';
+        };
 
         $scope.init = function(){
             $timeout(negateLoading, 1000);

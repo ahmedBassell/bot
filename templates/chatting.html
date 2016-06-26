@@ -8,6 +8,7 @@
 		<link rel="stylesheet" type="text/css" href="{% static 'assets/libs/bootstrap/bootstrap/css/bootstrap.css' %}" />
 
 	    <script type="text/javascript">var base_url = "{{ BASE_URL }}";</script>
+	    <script type="text/javascript">var static_url = "{% static '' %}";</script>
 	    <script type="text/javascript">var session_id = "{{ session_id }}";</script>
 	    <script type="text/javascript">console.log(base_url);</script>
 	    
@@ -42,6 +43,18 @@
 	            <!-- <div class="last">18:09</div> -->
 	            <ul class="nav navbar-nav navbar-right">
 			        
+
+					<li>
+						<div class="emotion_pic">
+							<img ng-src="<% emo_image_path %>" ng-if="emotion != 'meh'">
+						</div>
+					</li>
+			        <li>
+			        	<div class="emotions" ng-class="emo_drawing_color" data-toggle="modal" data-target="#myModal" title="<% emotion %>">
+			        		<i class="fa <% emo_drawing %>" aria-hidden="true"></i>
+
+			        	</div>
+			        </li>
 			        <li class="dropdown">
 			          <a href="#" class="dropdown-toggle settings-cog-cont" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 			          	<div class="settings-cog">
@@ -67,12 +80,14 @@
 			    	</div>
 			      <div class="msg">
 			        <p class="msg-txt" ng-bind ="msg.text"></p>
-			        <time class="msg-time" ng-bind="msg.time"></time>
+			        <time class="msg-time" ng-bind="msg.date|date:'hh:mm a': 'Africa/Cairo'"></time>
 			    </li>
 		    </ol>
 		    
 		    <input class="messageArea" type="text" placeholder="Type here!" my-enter="doit()" ng-model="input_text" autofocus/>
-		    <div class="emojis"></div>
+		    <div class="emojis">
+		    	
+		    </div>
 
 
 
@@ -95,7 +110,29 @@
         <h4 class="modal-title" id="myModalLabel">Current Emotion</h4>
       </div>
       <div class="modal-body">
-        <% current_emo %>
+
+      	<ul class="list-group">
+		  <li class="list-group-item">
+		    <span class="badge"><% current_emo.svm %></span>
+		    SVM
+		  </li>
+		  <li class="list-group-item">
+		    <span class="badge"><% current_emo.logi %></span>
+		    Logistic Regression
+		  </li>
+		  <li class="list-group-item">
+		    <span class="badge"><% current_emo.multi %></span>
+		    Multinomial Naive Bayes
+		  </li>
+		  <li class="list-group-item">
+		    <span class="badge"><% current_emo.time %></span>
+		    Elapsed Time
+		  </li>
+		</ul>
+        
+        
+        
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

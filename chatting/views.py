@@ -25,6 +25,7 @@ from op import operations
 from py27.chatbot import bot
 
 from django.utils import timezone
+from datetime import datetime
 
 from django.core import serializers
 from django.db.models import Q
@@ -47,9 +48,9 @@ def result(request):
 		
 		session = Session.objects.get(id = session_id)
 
-		datetime = timezone.now()
+		dt = datetime.now() 
 		bot = User.objects.get(username="bot")
-		c = Conversation(text=user_input, date=datetime, sender_id=request.user, receiver_id=bot, session_id = session)
+		c = Conversation(text=user_input, date=dt, sender_id=request.user, receiver_id=bot, session_id = session)
 		c.save()
 
 
@@ -59,7 +60,7 @@ def result(request):
         
         output = sara.print_response()
 
-        reply = Conversation(text=output, date=datetime, sender_id=bot, receiver_id=request.user, session_id = session)
+        reply = Conversation(text=output, date=dt, sender_id=bot, receiver_id=request.user, session_id = session)
         reply.save()
         
 

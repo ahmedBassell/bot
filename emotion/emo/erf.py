@@ -24,7 +24,7 @@ class Emotion(object):
         tfidfvec = dill.load(fileObject2) 
 
     def get_emotion(self, t):
-        result = []
+        result = {}
         for name in ['Logistic Regression', 'SVM', 'Multinomial Naive Bayes']:
             docs_new = [t]
             t_new_counts = count_vect.transform(docs_new)
@@ -32,6 +32,6 @@ class Emotion(object):
             clf = trained_clfs[name]
             predicted = clf.predict(t_new_tfidf)
             r1 = {'name':name, 'emotion':predicted[0]}
-            result.append(r1)
+            result[name] = predicted[0]
             sys.stdout.flush()
         return result
