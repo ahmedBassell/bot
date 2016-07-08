@@ -206,9 +206,7 @@
             else{
                 $http.get("http://ouuoxilnal.localtunnel.me/"+msg)
                     .then(function(response) {
-                        
-                        console.log(response);
-                        var output = response.data.input;
+                        var output = response.data.response;
                         $scope.new_message(output, new Date(), 5);
                     });
             }
