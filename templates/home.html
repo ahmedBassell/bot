@@ -6,13 +6,38 @@
 		<title>Chatbot | Home</title>
 		<link rel="stylesheet" type="text/css" href="{% static 'assets/css/main.css' %}" />
 		<link rel="stylesheet" type="text/css" href="{% static 'assets/libs/bootstrap/bootstrap/css/bootstrap.css' %}" />
+		
+		<style type="text/css">
+			.user_pic{
+				background-image: url(" {% static 'assets/img/user/default/Default_Profile.jpg' %} ");
+				background-size: cover !important;
+				background-position: 50% 50% !important;
+			}
+		</style>
 
 	    <script type="text/javascript">var base_url = "{{ BASE_URL }}";</script>
 	    <script type="text/javascript">console.log(base_url);</script>
 	    
 	    <script src="{% static 'assets/libs/jquery/jquery.min.js' %}"></script>
 	    <script src="{% static 'assets/libs/bootstrap/bootstrap/js/bootstrap.min.js' %}"></script>
-	    	    
+
+	    
+
+
+	    <!-- MORRIS -->
+		    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+			<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+	   	<!-- End MORRIS -->
+	    
+	<script type="text/javascript">
+		
+	</script>
+
+
+
+
 	    <script src="{% static 'assets/libs/angular/angular.min.js' %}"></script>
 	        
 	    <!-- loading angular modules -->
@@ -32,7 +57,7 @@
 		<div class="body">
 			<div class="user-profile col-md-4 col-lg-3 col-xs-4">
 				<div class="user_pic">
-					user picture ;)
+					
 				</div>
 				<div class="user_data">
 					<div class="username ud-cell">
@@ -52,42 +77,31 @@
 			</div>
 
 			<div class="main_body col-md-8 col-lg-9 col-xs-8">
-				<div class="welcome_message center col-md-10">
+				<div class="welcome_message center col-md-11">
 					Welcome Back 
 					<span class="welcome-user-email">
 						{{user.email}}
 					</span> !
 				</div>
-				<div class="sessions center col-md-10">
-					<div class="sessHeader">
-						<div class="sessionsTitle col-md-6">
-							Sessions
+				<div class="center col-md-11">
+					<div class="sessions  col-md-7 col-sm-12">
+						<div class="sessHeader">
+							<div class="sessionsTitle col-md-6">
+								Sessions
+							</div>
+							<div class="newSess col-md-6">
+								<a class="newSessLink" href="/?sess=new">
+									<div class="newSessButton">
+										<i class="fa fa-plus" aria-hidden="true"></i>
+										<span class="newSessionText">Start New Session</span>
+									</div>
+								</a>
+							</div>
 						</div>
-						<div class="newSess col-md-6">
-							<a href="/?sess=new">
-								<div class="newSessButton">
-									+ Start New Session
-								</div>
-							</a>
-						</div>
-					</div>
-					<div class="sessionsCont">
-						<!-- <div class="sess">
-							<div class="sessTitle col-md-6">
-								Session #22
-							</div>
-							<div class="sessRepliesNo col-md-6">
-								33849 replies
-							</div>
-							<div class="sessDateTime col-md-12">
-								Last seen: Tue 13 Mar 2007 12:00 pm
-							</div>
-						</div> -->
-						{% for sess in sessions %}
-						<a href="/?sess={{sess.id}}">
-							<div class="sess">
+						<div class="sessionsCont">
+							<!-- <div class="sess">
 								<div class="sessTitle col-md-6">
-									#{{sess.id}}
+									Session #22
 								</div>
 								<div class="sessRepliesNo col-md-6">
 									33849 replies
@@ -95,15 +109,36 @@
 								<div class="sessDateTime col-md-12">
 									Last seen: Tue 13 Mar 2007 12:00 pm
 								</div>
-							</div>
-						</a>
-						{% endfor %}
+							</div> -->
+							{% for sess in sessions %}
+							<a href="/?sess={{sess.id}}" class="sessionBox">
+								<div class="sess">
+									<div class="sessTitle col-md-6">
+										#{{sess.id}}
+									</div>
+									<div class="sessRepliesNo col-md-6">
+										33849 replies
+									</div>
+									<div class="sessDateTime col-md-12">
+										Last seen: Tue 13 Mar 2007 12:00 pm
+									</div>
+								</div>
+							</a>
+							{% endfor %}
+						</div>
 					</div>
-				</div>
-				<div class="visualization center col-md-10">
-					VISUALIZATION for something here
+					<div class="visualization right col-md-4 col-sm-12">
+						EMOTIONS Donut
+						<div ng-hide="donut" class="loading_div">
+							<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+						</div>
+						<div>
+							<div id="myfirstchart" style="height: 250px;"></div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>   
 	</body>
+
 </html>

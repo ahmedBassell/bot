@@ -33,6 +33,8 @@ from django.db.models import Q
 # MODELS
 from django.contrib.auth.models import User
 from models import Conversation, Session
+from user_profile.models import UserProfile
+
 
 sara = bot('Sara')
 @csrf_exempt # remove csrf
@@ -63,6 +65,24 @@ def result(request):
         reply = Conversation(text=output, date=dt, sender_id=bot, receiver_id=request.user, session_id = session)
         reply.save()
         
+        from emotion.emo.erf import Emotion
+        emo = Emotion()
+        result = emo.get_emotion(user_input)
+        resultant_emo = get_max_emotion(result)
+
+        user_profile = UserProfile.objects.get(user = request.user)
+        if resultant_emo == "joy":
+        	user_profile.joy_count = user_profile.joy_count + 1 
+        elif resultant_emo == "sadness":
+        	user_profile.sad_count = user_profile.sad_count + 1 
+        elif resultant_emo == "anger":
+        	user_profile.ang_count = user_profile.ang_count + 1 
+        elif resultant_emo == "fear":
+        	user_profile.fea_count = user_profile.fea_count + 1 
+        elif resultant_emo == "disgust":
+        	user_profile.dis_count = user_profile.dis_count + 1 
+
+        user_profile.save()
 
         res = {
         	'input': user_input,
@@ -98,3 +118,15 @@ def chats(request):
 
 	return HttpResponse(data, content_type='application/json')
 	# return JsonResponse({}, safe=False)
+
+
+def get_max_emotion(result):
+	import operator
+	emo_dict = {'joy':0, 'sadness':0, 'disgust':0, 'anger':0, 'fear':0, 'shame':0}
+	emo_dict[result['SVM']] = emo_dict[result['SVM']] + 1 
+	emo_dict[result['Logistic Regression']]  = emo_dict[result['Logistic Regression']] + 1 
+	emo_dict[result['Multinomial Naive Bayes']] = emo_dict[result['Multinomial Naive Bayes']] + 1
+	return max(emo_dict.iteritems(), key=operator.itemgetter(1))[0]
+
+
+

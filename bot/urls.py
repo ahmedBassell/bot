@@ -58,6 +58,9 @@ urlpatterns = [
     url(r'^accounts/register/$', 'bot.views.register_user'),
     url(r'^accounts/register_success/$', 'bot.views.register_success'),
     
+    # user profile
+    url(r'^profile/emotions$', 'user_profile.views.get_emotions_score'),
+    
 
     url(r'^$', 'bot.views.chatting'),
 ]

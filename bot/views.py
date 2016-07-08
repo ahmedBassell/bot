@@ -15,7 +15,7 @@ logr = logging.getLogger(__name__)
 
 def login(request):
 	if(request.user.is_authenticated()):
-		return HttpResponseRedirect('/accounts/loggedin/')
+		return HttpResponseRedirect(settings.BASE_URL+'/accounts/loggedin/')
 	c = {}
 	c.update(csrf(request))
 	return render_to_response('login.html',c)
@@ -27,13 +27,13 @@ def auth_view(request):
 
 	if user is not None:
 		auth.login(request, user)
-		return HttpResponseRedirect('/')
+		return HttpResponseRedirect(settings.BASE_URL)
 	else:
-		return HttpResponseRedirect('/accounts/invalid_login/')
+		return HttpResponseRedirect(settings.BASE_URL+'/accounts/invalid_login/')
 
 def loggedin(request):
 	if(not request.user.is_authenticated()):
-		return HttpResponseRedirect('/accounts/login/')
+		return HttpResponseRedirect(settings.BASE_URL+'/accounts/login/')
 	return render_to_response('loggedin.html',
 							 {'full_name':request.user.username})
 
@@ -49,7 +49,7 @@ def register_user(request):
 		form = MyRegistrationForm(request.POST)
 		if form.is_valid():
 			form.save()
-			return HttpResponseRedirect('/accounts/register_success')
+			return HttpResponseRedirect('settings.BASE_URL+/accounts/register_success')
 
 	args = {}
 	args.update(csrf(request))
@@ -69,7 +69,7 @@ def chatting(request):
 				# new
 				s = Session(name="new session", user_id=user)
 				s.save()
-				return HttpResponseRedirect('/?sess=' + str(s.id))
+				return HttpResponseRedirect(settings.BASE_URL+'/?sess=' + str(s.id))
 			else:
 				# find if exist
 				try:
@@ -78,14 +78,14 @@ def chatting(request):
 				    s = None
 				
 				if(s is None):
-					return HttpResponseRedirect('/home')
+					return HttpResponseRedirect(settings.BASE_URL+'/home')
 
 		html =  render_to_response('chatting.html',{
 		'BASE_URL': settings.BASE_URL,
 		'session_id': s.id 		
 		})
 		return HttpResponse(html)
-	return HttpResponseRedirect('/accounts/login/')
+	return HttpResponseRedirect(settings.BASE_URL+'/accounts/login/')
 
 
 
@@ -106,4 +106,4 @@ def home(request):
 		'sessions': sessions
 		})
 		return HttpResponse(html)
-	return HttpResponseRedirect('/accounts/login/')
+	return HttpResponseRedirect(settings.BASE_URL+'/accounts/login/')

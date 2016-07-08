@@ -10,6 +10,8 @@ from django.contrib.auth.models import User
 class Session(models.Model):
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_sess')
 	name = models.TextField()
+	# replies_no = models.IntegerField(default = 0)
+	# last_seen = models.DateTimeField(default = datetime.date.today())
 
 
 class Conversation(models.Model):
