@@ -43,7 +43,12 @@
 	            <!-- <div class="last">18:09</div> -->
 	            <ul class="nav navbar-nav navbar-right">
 			        
-
+					<li>
+						<select ng-model="bot_type" class="botSelect">
+							<option value="Rnn">Rnn</option>
+							<option value="Traditional">Traditional</option>
+						</select>
+					</li>
 					<li>
 						<div class="emotion_pic">
 							<img ng-src="<% emo_image_path %>" ng-if="emotion != 'meh'">

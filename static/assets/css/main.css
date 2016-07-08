@@ -602,3 +602,7 @@ html, body, .body{
     top: 45%;
     transform: translateY(-50%);
 }
+.botSelect{
+    padding: 5px;
+    margin: 8px 15px;
+}

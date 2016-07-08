@@ -90,7 +90,7 @@
 								Sessions
 							</div>
 							<div class="newSess col-md-6">
-								<a class="newSessLink" href="/?sess=new">
+								<a class="newSessLink" href="{{BASE_URL}}/?sess=new">
 									<div class="newSessButton">
 										<i class="fa fa-plus" aria-hidden="true"></i>
 										<span class="newSessionText">Start New Session</span>
@@ -111,7 +111,7 @@
 								</div>
 							</div> -->
 							{% for sess in sessions %}
-							<a href="/?sess={{sess.id}}" class="sessionBox">
+							<a href="{{BASE_URL}}/?sess={{sess.id}}" class="sessionBox">
 								<div class="sess">
 									<div class="sessTitle col-md-6">
 										#{{sess.id}}

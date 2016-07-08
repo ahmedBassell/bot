@@ -53,6 +53,13 @@
 
 
 
+
+
+
+
+        // Choose your Bot
+        $scope.bot_type = "Traditional";
+
         $scope.classify_emotion = function(){
             $scope.emotions[$scope.current_emo.svm] ++;
             $scope.emotions[$scope.current_emo.logi] ++;
@@ -160,7 +167,7 @@
 
 
 
-            console.log(Date());
+            // console.log(Date());
             $scope.new_message($scope.input_text, new Date(), 1);
 
             // post message
@@ -174,26 +181,37 @@
         };
 
         $scope.send_message = function(msg){
-            var data = 
-            {
-                input: msg,
-                session_id : $scope.session_id
-            };
-            // var data = $.param({
-            //     input: msg
-            // });
-            $http.post(($scope.base_url+"/result"), data)
-                .then(function(response) {
-                    // console.log(response.data.input);
-                    // console.log(response.data.output);
-                    var output = response.data.output;
-                    $scope.new_message(output, new Date(), 5);
-                    // var message = {}
-                    // message.text = output;
-                    // message.time = "20:11";
-                    // message.sender_id = 0;
-                    // $scope.messages.push(message);
-                });
+            if($scope.bot_type == "Traditional"){
+                var data = 
+                {
+                    input: msg,
+                    session_id : $scope.session_id
+                };
+                // var data = $.param({
+                //     input: msg
+                // });
+                $http.post(($scope.base_url+"/result"), data)
+                    .then(function(response) {
+                        // console.log(response.data.input);
+                        // console.log(response.data.output);
+                        var output = response.data.output;
+                        $scope.new_message(output, new Date(), 5);
+                        // var message = {}
+                        // message.text = output;
+                        // message.time = "20:11";
+                        // message.sender_id = 0;
+                        // $scope.messages.push(message);
+                    });
+            }
+            else{
+                $http.get("http://ouuoxilnal.localtunnel.me/"+msg)
+                    .then(function(response) {
+                        
+                        console.log(response);
+                        var output = response.data.input;
+                        $scope.new_message(output, new Date(), 5);
+                    });
+            }
         };
 
         $scope.get_old_convs = function(){
