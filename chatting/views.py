@@ -94,6 +94,32 @@ def result(request):
 	return JsonResponse(res, safe=False)
 
 
+
+
+
+
+@csrf_exempt
+def save_conv(request):
+	if(not request.user.is_authenticated()):
+		return JsonResponse({'response':'forbidden'})
+	res = {}
+	if request.method == 'POST':
+		received_json_data=json.loads(request.body)
+		user_input = received_json_data['input']
+		user_output = received_json_data['output']
+		session_id = received_json_data['session_id']
+		
+		session = Session.objects.get(id = session_id)
+
+		dt = datetime.now() 
+		bot = User.objects.get(username="bot")
+		c = Conversation(text=user_input, date=dt, sender_id=request.user, receiver_id=bot, session_id = session)
+		c.save()
+
+		c = Conversation(text=user_output, date=dt, sender_id=bot, receiver_id=request.user, session_id = session)
+		c.save()
+
+		return HttpResponse({"response":"done"}, content_type='application/json')
 @csrf_exempt
 def chats(request):
 	if(not request.user.is_authenticated()):
@@ -122,7 +148,7 @@ def chats(request):
 
 def get_max_emotion(result):
 	import operator
-	emo_dict = {'joy':0, 'sadness':0, 'disgust':0, 'anger':0, 'fear':0, 'shame':0}
+	emo_dict = {'joy':0, 'sadness':0, 'disgust':0, 'anger':0, 'fear':0, 'shame':0, 'guilt':0}
 	emo_dict[result['SVM']] = emo_dict[result['SVM']] + 1 
 	emo_dict[result['Logistic Regression']]  = emo_dict[result['Logistic Regression']] + 1 
 	emo_dict[result['Multinomial Naive Bayes']] = emo_dict[result['Multinomial Naive Bayes']] + 1

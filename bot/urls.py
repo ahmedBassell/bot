@@ -42,6 +42,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     # url(r'^', include(router.urls)),
     url(r'^result$', 'chatting.views.result'),
+    url(r'^save_conv$', 'chatting.views.save_conv'),
     url(r'^emo$', 'emotion.views.find_emotion'),
     url(r'^chats$', 'chatting.views.chats'),
     url(r'^api-auth/', include('rest_framework.urls')),

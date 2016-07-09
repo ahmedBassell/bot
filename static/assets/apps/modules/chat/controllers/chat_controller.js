@@ -58,7 +58,7 @@
 
 
         // Choose your Bot
-        $scope.bot_type = "Traditional";
+        $scope.bot_type = "Rnn";
 
         $scope.classify_emotion = function(){
             $scope.emotions[$scope.current_emo.svm] ++;
@@ -143,6 +143,18 @@
             message.sender_id = sender;
             $scope.messages.push(message);
         };
+
+        $scope.save_rnn_conv = function(inp, out){
+            var data = 
+            {
+                input: inp,
+                output: out,
+                session_id : $scope.session_id
+            };
+
+            $http.post(($scope.base_url+"/save_conv"), data);
+        };
+
         $scope.doit = function(){
             // console.log($scope.input_text);
             // var message = {}
@@ -208,10 +220,13 @@
                     .then(function(response) {
                         var output = response.data.response;
                         $scope.new_message(output, new Date(), 5);
+
+                        $scope.save_rnn_conv(msg, output);
                     });
             }
         };
 
+        
         $scope.get_old_convs = function(){
             $http.get($scope.base_url+"/chats?sess="+$scope.session_id)
             .then(function(response) {
