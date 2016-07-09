@@ -100,6 +100,7 @@ def chatting(request):
 
 		html =  render_to_response('chatting.html',{
 		'BASE_URL': settings.BASE_URL,
+		'RNN_URL': settings.RNN_URL,
 		'session_id': s.id 		
 		})
 		return HttpResponse(html)

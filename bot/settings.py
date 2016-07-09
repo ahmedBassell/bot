@@ -19,6 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
 SITE_ROOT = os.path.dirname(PROJECT_ROOT)
 BASE_URL = env.get_base_url()
+RNN_URL = env.get_rnn_url()
 
 STATICFILES_DIRS = [
     # os.path.join(BASE_DIR, "static")

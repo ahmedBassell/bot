@@ -56,7 +56,6 @@
 
 
 
-
         // Choose your Bot
         $scope.bot_type = "Rnn";
 
@@ -216,7 +215,7 @@
                     });
             }
             else{
-                $http.get("http://ouuoxilnal.localtunnel.me/"+msg)
+                $http.get(rnn_url+"/"+msg)
                     .then(function(response) {
                         var output = response.data.response;
                         $scope.new_message(output, new Date(), 5);
