@@ -7,6 +7,8 @@ from forms import MyRegistrationForm
 from django.conf import settings
 
 from chatting.models import Session
+from django.contrib.auth.models import User
+from user_profile.models import UserProfile
 
 # from django.contrib.formtools.wizard.views import SessionWizardView
 from django.core.mail import send_mail
@@ -16,7 +18,9 @@ logr = logging.getLogger(__name__)
 def login(request):
 	if(request.user.is_authenticated()):
 		return HttpResponseRedirect(settings.BASE_URL+'/accounts/loggedin/')
-	c = {}
+	c = {
+		'BASE_URL': settings.BASE_URL	
+	}
 	c.update(csrf(request))
 	return render_to_response('login.html',c)
 
@@ -35,29 +39,43 @@ def loggedin(request):
 	if(not request.user.is_authenticated()):
 		return HttpResponseRedirect(settings.BASE_URL+'/accounts/login/')
 	return render_to_response('loggedin.html',
-							 {'full_name':request.user.username})
+							 {'full_name':request.user.username,'BASE_URL': settings.BASE_URL})
 
 def invalid_login(request):
-	return render_to_response('invalid_login.html')
+	return render_to_response('invalid_login.html',{
+		'BASE_URL': settings.BASE_URL	
+		})
 
 def logout(request):
 	auth.logout(request)
-	return render_to_response('logout.html')
+	return render_to_response('logout.html',{
+		'BASE_URL': settings.BASE_URL	
+		})
 
 def register_user(request):
 	if request.method == 'POST':
 		form = MyRegistrationForm(request.POST)
 		if form.is_valid():
 			form.save()
-			return HttpResponseRedirect('settings.BASE_URL+/accounts/register_success')
+			# up = UserProfile(user=form.u, joy_count=1, dis_count=1, ang_count=1, fea_count = 1, sad_count=1)
+			# up.save()
+			# return render_to_response('register')
+			return HttpResponseRedirect(settings.BASE_URL+'/accounts/register_success')
 
 	args = {}
 	args.update(csrf(request))
 	args['form'] = MyRegistrationForm()
+	args['BASE_URL'] = settings.BASE_URL
 	return render_to_response('register.html', args)
 
 def register_success(request):
-	return render_to_response('register_success.html')
+	# u = User.objects.get(id = request.user.id)
+	# up = UserProfile(user=u, joy_count=1, dis_count=1, ang_count=1, fea_count = 1, sad_count=1)
+	# up.save()
+
+	return render_to_response('register_success.html',{
+		'BASE_URL': settings.BASE_URL	
+		})
 
 def chatting(request):
 	if(request.user.is_authenticated()):

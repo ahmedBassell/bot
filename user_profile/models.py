@@ -1,7 +1,7 @@
 from django.db import models
 
 from django.contrib.auth.models import User
-
+from django.db.models.signals import post_save
 # Create your models here.
 class UserProfile(models.Model):  
     user = models.OneToOneField(
@@ -17,3 +17,16 @@ class UserProfile(models.Model):
 
     def __unicode__(self):
         return unicode(self.user)
+
+
+
+
+
+
+
+def create_profile(sender, **kwargs):
+    user = kwargs["instance"]
+    if kwargs["created"]:
+        up = UserProfile(user=user)
+        up.save()
+post_save.connect(create_profile, sender=User)

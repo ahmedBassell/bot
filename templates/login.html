@@ -15,7 +15,7 @@
 <p class="error"> Sorry, that's not a valid username or password.</p>
 {% endif %}
 
-<form action="/accounts/auth/" method="post">{% csrf_token %}
+<form action="{{BASE_URL}}/accounts/auth/" method="post">{% csrf_token %}
   <div class="group">
     <input type="text" name="username" value="" id="username">
     <span class="highlight"></span><span class="bar"></span>
@@ -29,7 +29,7 @@
   <button type="submit" class="button buttonBlue">Login
     <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
   </button>
-  <a href="/accounts/register">create new account</a>
+  <a href="{{BASE_URL}}/accounts/register">create new account</a>
 </form>
 <footer>
 <!-- <a href="http://www.polymer-project.org/" target="_blank"><img src="https://www.polymer-project.org/images/logos/p-logo.svg"></a>

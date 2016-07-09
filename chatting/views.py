@@ -119,7 +119,25 @@ def save_conv(request):
 		c = Conversation(text=user_output, date=dt, sender_id=bot, receiver_id=request.user, session_id = session)
 		c.save()
 
-		return HttpResponse({"response":"done"}, content_type='application/json')
+		from emotion.emo.erf import Emotion
+        emo = Emotion()
+        result = emo.get_emotion(user_input)
+        resultant_emo = get_max_emotion(result)
+
+        user_profile = UserProfile.objects.get(user = request.user)
+        if resultant_emo == "joy":
+        	user_profile.joy_count = user_profile.joy_count + 1 
+        elif resultant_emo == "sadness":
+        	user_profile.sad_count = user_profile.sad_count + 1 
+        elif resultant_emo == "anger":
+        	user_profile.ang_count = user_profile.ang_count + 1 
+        elif resultant_emo == "fear":
+        	user_profile.fea_count = user_profile.fea_count + 1 
+        elif resultant_emo == "disgust":
+        	user_profile.dis_count = user_profile.dis_count + 1 
+
+        user_profile.save()
+        return HttpResponse(resultant_emo, content_type='application/json')
 @csrf_exempt
 def chats(request):
 	if(not request.user.is_authenticated()):

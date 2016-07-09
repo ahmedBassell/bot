@@ -11,7 +11,7 @@
   <h1>Chatbot</h1>
   <h3>beta</h3>
 </hgroup>
-<form action="/accounts/register/" method="post">{% csrf_token %}
+<form action="{{BASE_URL}}/accounts/register/" method="post">{% csrf_token %}
  	{% for field in form %}
 	    <div class="fieldWrapper">
 
@@ -30,7 +30,7 @@
   <button type="submit" class="button buttonBlue">Register
     <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
   </button>
-  <a href="/accounts/login">Aleady User?</a>
+  <a href="{{BASE_URL}}/accounts/login">Aleady User?</a>
 </form>
 <footer>
 <!-- <a href="http://www.polymer-project.org/" target="_blank"><img src="https://www.polymer-project.org/images/logos/p-logo.svg"></a>
