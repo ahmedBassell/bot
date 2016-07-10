@@ -14,6 +14,7 @@
         function negateLoading(){
             $scope.loading = false;
         }
+        $scope.dominant_emo = "NEUTRAL";
 
         // new Morris.Line({
         // // ID of the element in which to draw the chart.
@@ -40,6 +41,14 @@
         $scope.donut = false;
         $scope.emotions_score = {};
 
+        $scope.rightl = [];
+        $scope.rightl['joy_count'] = "Joy";
+        $scope.rightl['sad_count'] = 'Sadness'; 
+        $scope.rightl['ang_count'] = "Anger";
+        $scope.rightl['dis_count'] = "Disgust"; 
+        $scope.rightl['fea_count'] = "Fear";
+        
+
         $scope.get_emotions_score = function(){
             $http.get($scope.base_url+"/profile/emotions")
             .then(function(response) {
@@ -47,8 +56,23 @@
                 $scope.emotions_score = output;
                 $scope.donut = true;
                 $scope.init_donut($scope.emotions_score);
+                $scope.dominant_emo = $scope.dom_score(output);
+                
             });
 
+        };
+
+        $scope.dom_score = function(out){
+            var max = 0;
+            var dom = "";
+
+            for(var i in out){
+                if(out[i]>max && i !="user" ){
+                    max = out[i];
+                    dom = $scope.rightl[i];
+                }
+            }
+            return dom;
         };
 
         $scope.init_donut = function(obj){
